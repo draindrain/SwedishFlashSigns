@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\\\Git\\\\SwedishFlashSigns\" && npx playwright install chromium 2>&1)",
+      "Bash(cd \"C:\\\\Git\\\\SwedishFlashSigns\" && npm run scrape 2>&1)",
+      "WebFetch(domain:www.transportstyrelsen.se)",
+      "Bash(curl -s \"https://www.transportstyrelsen.se/sv/vagtrafik/trafikregler-och-vagmarken/vagmarken/\" | sed -n '1,50000p' | tail -c 15000)",
+      "Bash(curl -s \"https://www.transportstyrelsen.se/sv/vagtrafik/trafikregler-och-vagmarken/vagmarken/\" | grep -A 5 -B 5 \"huvudinnehall\" | head -100)",
+      "Bash(curl -s \"https://www.transportstyrelsen.se/sv/vagtrafik/trafikregler-och-vagmarken/vagmarken/\" | sed -n '/id=\"huvudinnehall\"/,/<\\\\/main>/p' | head -2000)"
+    ]
+  }
+}
