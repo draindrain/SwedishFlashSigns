@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { getImageUrl } from '../data/signs'
+import type { TrafficSign } from '../data/signs'
 
 interface Props {
-  id: string
-  name: string
+  sign: TrafficSign
   /** visual state for feedback */
   state?: 'default' | 'correct' | 'wrong' | 'disabled'
   onClick?: () => void
@@ -18,7 +18,7 @@ const stateClasses: Record<NonNullable<Props['state']>, string> = {
   disabled: 'border-gray-200 bg-white opacity-50 cursor-default',
 }
 
-export default function SignCard({ id, name, state = 'default', onClick, showLabel }: Props) {
+export default function SignCard({ sign, state = 'default', onClick, showLabel }: Props) {
   const [imgError, setImgError] = useState(false)
 
   return (
@@ -39,12 +39,12 @@ export default function SignCard({ id, name, state = 'default', onClick, showLab
       <div className="w-24 h-24 flex items-center justify-center">
         {imgError ? (
           <div className="w-24 h-24 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-xs text-center px-1">
-            {id}
+            {sign.id}
           </div>
         ) : (
           <img
-            src={getImageUrl(id)}
-            alt={name}
+            src={getImageUrl(sign)}
+            alt={sign.name}
             className="max-w-full max-h-full object-contain"
             onError={() => setImgError(true)}
           />
@@ -52,7 +52,7 @@ export default function SignCard({ id, name, state = 'default', onClick, showLab
       </div>
 
       {showLabel && (
-        <p className="mt-2 text-xs text-gray-600 text-center leading-tight">{name}</p>
+        <p className="mt-2 text-xs text-gray-600 text-center leading-tight">{sign.name}</p>
       )}
     </button>
   )

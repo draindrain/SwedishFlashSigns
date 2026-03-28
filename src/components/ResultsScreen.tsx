@@ -20,7 +20,7 @@ function ReviewItem({ aq }: { aq: AnsweredQuestion }) {
         <div className="flex flex-col items-center gap-1">
           <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-red-300 bg-red-50 flex items-center justify-center">
             <img
-              src={getImageUrl(selectedId)}
+              src={wrongSign ? getImageUrl(wrongSign) : ''}
               alt={wrongSign?.name ?? selectedId}
               className="max-w-full max-h-full object-contain p-1"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
@@ -40,7 +40,7 @@ function ReviewItem({ aq }: { aq: AnsweredQuestion }) {
         <div className="flex flex-col items-center gap-1">
           <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-green-400 bg-green-50 flex items-center justify-center">
             <img
-              src={getImageUrl(correctSign.id)}
+              src={getImageUrl(correctSign)}
               alt={correctSign.name}
               className="max-w-full max-h-full object-contain p-1"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}

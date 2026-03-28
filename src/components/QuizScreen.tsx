@@ -1,4 +1,5 @@
 import type { Question } from '../utils/quizGenerator'
+import type { TrafficSign } from '../data/signs'
 import SignCard from './SignCard'
 import { getImageUrl } from '../data/signs'
 import { useState } from 'react'
@@ -13,19 +14,19 @@ interface Props {
   onQuit: () => void
 }
 
-function SignImage({ id, name }: { id: string; name: string }) {
+function SignImage({ sign }: { sign: TrafficSign }) {
   const [imgError, setImgError] = useState(false)
   if (imgError) {
     return (
       <div className="w-40 h-40 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500 font-semibold text-lg">
-        {id}
+        {sign.id}
       </div>
     )
   }
   return (
     <img
-      src={getImageUrl(id)}
-      alt={name}
+      src={getImageUrl(sign)}
+      alt={sign.name}
       className="w-40 h-40 object-contain"
       onError={() => setImgError(true)}
     />
@@ -66,7 +67,6 @@ export default function QuizScreen({
           ✕ Avsluta
         </button>
         <div className="flex-1">
-          {/* Progress bar */}
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-blue-500 transition-all duration-300"
@@ -83,9 +83,7 @@ export default function QuizScreen({
       <div className="text-center pt-4 pb-2">
         <span className="text-sm text-gray-500">
           Rätt: <span className="font-semibold text-green-600">{correctCount}</span>
-          {questionNumber > 1 && (
-            <> / {questionNumber - 1}</>
-          )}
+          {questionNumber > 1 && <> / {questionNumber - 1}</>}
         </span>
       </div>
 
@@ -94,7 +92,6 @@ export default function QuizScreen({
 
         {/* Prompt area */}
         {mode === 'nameToSign' ? (
-          /* Show name, pick sign */
           <div className="max-w-sm w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-6 text-center">
             <p className="text-xs uppercase tracking-wide text-gray-400 mb-2">
               Välj rätt skylt för
@@ -105,13 +102,12 @@ export default function QuizScreen({
             <p className="text-xs text-gray-400 mt-2">{correctSign.categoryName}</p>
           </div>
         ) : (
-          /* Show sign, pick name */
           <div className="flex flex-col items-center gap-2">
             <p className="text-xs uppercase tracking-wide text-gray-400">
               Vilket är namnet på denna skylt?
             </p>
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
-              <SignImage id={correctSign.id} name={correctSign.name} />
+              <SignImage sign={correctSign} />
             </div>
             <p className="text-xs text-gray-400">{correctSign.categoryName}</p>
           </div>
@@ -119,20 +115,17 @@ export default function QuizScreen({
 
         {/* Choices */}
         {mode === 'nameToSign' ? (
-          /* 2x2 sign image grid */
           <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
             {choices.map(sign => (
               <SignCard
                 key={sign.id}
-                id={sign.id}
-                name={sign.name}
+                sign={sign}
                 state={getCardState(sign.id, correctSign.id, selectedId)}
                 onClick={() => onAnswer(sign.id)}
               />
             ))}
           </div>
         ) : (
-          /* 4 name buttons */
           <div className="flex flex-col gap-3 w-full max-w-sm">
             {choices.map(sign => {
               const cs = getCardState(sign.id, correctSign.id, selectedId)
@@ -161,4 +154,3 @@ export default function QuizScreen({
     </div>
   )
 }
-

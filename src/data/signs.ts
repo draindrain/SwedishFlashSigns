@@ -3,10 +3,16 @@ export interface TrafficSign {
   name: string
   category: string
   categoryName: string
+  /** Set after running scripts/scrape.py. Empty string = use Wikimedia fallback. */
+  imageFile?: string
 }
 
-export function getImageUrl(id: string): string {
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/Sweden_road_sign_${id}.svg`
+export function getImageUrl(sign: TrafficSign): string {
+  if (sign.imageFile) {
+    return import.meta.env.BASE_URL + 'signs/' + sign.imageFile
+  }
+  // Fallback: Wikimedia Commons (used before running the scraper)
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/Sweden_road_sign_${sign.id}.svg`
 }
 
 export const SIGNS: TrafficSign[] = [
