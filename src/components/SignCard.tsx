@@ -12,10 +12,10 @@ interface Props {
 }
 
 const stateClasses: Record<NonNullable<Props['state']>, string> = {
-  default:  'border-gray-200 bg-white hover:border-blue-400 hover:shadow-md cursor-pointer',
+  default:  'border-slate-200 bg-white hover:border-amber-300 hover:shadow-md cursor-pointer',
   correct:  'border-green-500 bg-green-50 ring-2 ring-green-300 cursor-default shadow-sm',
   wrong:    'border-red-500 bg-red-50 ring-2 ring-red-300 cursor-default shadow-sm',
-  disabled: 'border-gray-200 bg-white opacity-40 cursor-default',
+  disabled: 'border-slate-200 bg-white opacity-40 cursor-default',
 }
 
 export default function SignCard({ id, name, state = 'default', onClick, showLabel }: Props) {
@@ -38,7 +38,7 @@ export default function SignCard({ id, name, state = 'default', onClick, showLab
       {/* Sign image */}
       <div className="w-full aspect-square flex items-center justify-center">
         {imgError ? (
-          <div className="w-full aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-xs text-center px-1">
+          <div className="w-full aspect-square rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 text-xs text-center px-1">
             {id}
           </div>
         ) : (
@@ -52,7 +52,7 @@ export default function SignCard({ id, name, state = 'default', onClick, showLab
       </div>
 
       {showLabel && (
-        <p className="mt-2 text-xs text-gray-600 text-center leading-tight">{name}</p>
+        <p className="mt-2 text-xs text-slate-600 text-center leading-tight">{name}</p>
       )}
     </button>
   )

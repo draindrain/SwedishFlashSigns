@@ -17,7 +17,7 @@ function SignImage({ id, name }: { id: string; name: string }) {
   const [imgError, setImgError] = useState(false)
   if (imgError) {
     return (
-      <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500 font-semibold text-lg">
+      <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-semibold text-lg">
         {id}
       </div>
     )
@@ -56,32 +56,32 @@ export default function QuizScreen({
   const progress = (questionNumber - 1) / total
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Top bar */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-4">
+      <div className="bg-white border-b border-slate-100 px-4 py-3 flex items-center gap-4">
         <button
           onClick={onQuit}
-          className="text-gray-400 hover:text-red-500 transition-colors text-sm"
+          className="text-slate-400 hover:text-red-500 transition-colors text-sm"
         >
           ✕ Avsluta
         </button>
         <div className="flex-1">
           {/* Progress bar */}
-          <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
             <div
-              className="h-full bg-blue-500 rounded-full transition-all duration-300"
+              className="h-full bg-amber-400 rounded-full transition-all duration-300"
               style={{ width: `${progress * 100}%` }}
             />
           </div>
         </div>
-        <div className="text-sm text-gray-600 font-semibold whitespace-nowrap">
+        <div className="text-sm text-slate-600 font-semibold whitespace-nowrap">
           {questionNumber}/{total}
         </div>
       </div>
 
       {/* Score */}
       <div className="text-center pt-4 pb-2">
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-slate-500">
           Rätt: <span className="font-semibold text-green-600">{correctCount}</span>
           {questionNumber > 1 && (
             <> / {questionNumber - 1}</>
@@ -95,25 +95,25 @@ export default function QuizScreen({
         {/* Prompt area */}
         {mode === 'nameToSign' ? (
           /* Show name, pick sign */
-          <div className="max-w-lg w-full bg-white rounded-2xl border border-gray-100 shadow-md p-8 text-center">
-            <p className="text-xs uppercase tracking-wide text-gray-400 mb-2">
+          <div className="max-w-lg w-full bg-white rounded-2xl border border-slate-100 shadow-md p-8 text-center">
+            <p className="text-xs uppercase tracking-wide text-slate-400 mb-2">
               Välj rätt skylt för
             </p>
-            <p className="text-xl font-bold text-gray-900 leading-snug">
+            <p className="text-xl font-bold text-slate-900 leading-snug">
               {correctSign.name}
             </p>
-            <p className="text-xs text-gray-400 mt-2">{correctSign.categoryName}</p>
+            <p className="text-xs text-slate-400 mt-2">{correctSign.categoryName}</p>
           </div>
         ) : (
           /* Show sign, pick name */
           <div className="flex flex-col items-center gap-2">
-            <p className="text-xs uppercase tracking-wide text-gray-400">
+            <p className="text-xs uppercase tracking-wide text-slate-400">
               Vilket är namnet på denna skylt?
             </p>
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-md p-5">
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-5">
               <SignImage id={correctSign.id} name={correctSign.name} />
             </div>
-            <p className="text-xs text-gray-400">{correctSign.categoryName}</p>
+            <p className="text-xs text-slate-400">{correctSign.categoryName}</p>
           </div>
         )}
 
@@ -140,8 +140,8 @@ export default function QuizScreen({
               const variantClass =
                 cs === 'correct' ? 'border-green-500 bg-green-50 text-green-900 ring-2 ring-green-400 cursor-default'
                 : cs === 'wrong'   ? 'border-red-500 bg-red-50 text-red-900 ring-2 ring-red-400 cursor-default'
-                : cs === 'disabled'? 'border-gray-200 bg-white text-gray-400 opacity-50 cursor-default'
-                : 'border-gray-200 bg-white text-gray-800 hover:border-blue-400 hover:shadow-sm cursor-pointer'
+                : cs === 'disabled'? 'border-slate-200 bg-white text-slate-400 opacity-50 cursor-default'
+                : 'border-slate-200 bg-white text-slate-800 hover:border-amber-300 hover:shadow-sm cursor-pointer'
               return (
                 <button
                   key={sign.id}
