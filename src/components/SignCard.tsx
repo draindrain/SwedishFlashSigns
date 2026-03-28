@@ -13,9 +13,9 @@ interface Props {
 
 const stateClasses: Record<NonNullable<Props['state']>, string> = {
   default:  'border-gray-200 bg-white hover:border-blue-400 hover:shadow-md cursor-pointer',
-  correct:  'border-green-500 bg-green-50 ring-2 ring-green-400 cursor-default',
-  wrong:    'border-red-500 bg-red-50 ring-2 ring-red-400 cursor-default',
-  disabled: 'border-gray-200 bg-white opacity-50 cursor-default',
+  correct:  'border-green-500 bg-green-50 ring-2 ring-green-300 cursor-default shadow-sm',
+  wrong:    'border-red-500 bg-red-50 ring-2 ring-red-300 cursor-default shadow-sm',
+  disabled: 'border-gray-200 bg-white opacity-40 cursor-default',
 }
 
 export default function SignCard({ id, name, state = 'default', onClick, showLabel }: Props) {
@@ -25,20 +25,20 @@ export default function SignCard({ id, name, state = 'default', onClick, showLab
     <button
       onClick={state === 'default' ? onClick : undefined}
       disabled={state !== 'default'}
-      className={`relative flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all select-none ${stateClasses[state]}`}
+      className={`relative flex flex-col items-center justify-center p-3 rounded-xl border shadow-sm transition-all select-none ${stateClasses[state]}`}
     >
       {/* Feedback icon */}
       {state === 'correct' && (
-        <span className="absolute top-2 right-2 text-green-500 text-lg">✓</span>
+        <span className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-sm">✓</span>
       )}
       {state === 'wrong' && (
-        <span className="absolute top-2 right-2 text-red-500 text-lg">✗</span>
+        <span className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-sm">✗</span>
       )}
 
       {/* Sign image */}
-      <div className="w-24 h-24 flex items-center justify-center">
+      <div className="w-full aspect-square flex items-center justify-center">
         {imgError ? (
-          <div className="w-24 h-24 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-xs text-center px-1">
+          <div className="w-full aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-xs text-center px-1">
             {id}
           </div>
         ) : (

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { SIGNS } from '../data/signs'
+import { SIGNS, getImageUrl } from '../data/signs'
 import { generateQuestions } from '../utils/quizGenerator'
 import type { QuizMode, Question } from '../utils/quizGenerator'
 
@@ -59,6 +59,17 @@ export function useQuiz() {
 
       // The actual advance is triggered after a timeout (see below)
       void { question, correct } // suppress unused warning
+    })
+
+    // Preload next question's images during the 1s feedback window
+    setState(prev => {
+      const nextIndex = prev.currentIndex + 1
+      if (nextIndex < prev.questions.length) {
+        const next = prev.questions[nextIndex]
+        next.choices.forEach(c => { new Image().src = getImageUrl(c.id) })
+        new Image().src = getImageUrl(next.correctSign.id)
+      }
+      return prev
     })
 
     // Advance after 1 second

@@ -18,7 +18,7 @@ function ReviewItem({ aq }: { aq: AnsweredQuestion }) {
       <div className="flex gap-4 items-start">
         {/* Wrong answer */}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-red-300 bg-red-50 flex items-center justify-center">
+          <div className="w-20 h-20 sm:w-16 sm:h-16 rounded-lg overflow-hidden border border-red-300 bg-red-50 flex items-center justify-center">
             <img
               src={getImageUrl(selectedId)}
               alt={wrongSign?.name ?? selectedId}
@@ -38,7 +38,7 @@ function ReviewItem({ aq }: { aq: AnsweredQuestion }) {
 
         {/* Correct answer */}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-green-400 bg-green-50 flex items-center justify-center">
+          <div className="w-20 h-20 sm:w-16 sm:h-16 rounded-lg overflow-hidden border border-green-400 bg-green-50 flex items-center justify-center">
             <img
               src={getImageUrl(correctSign.id)}
               alt={correctSign.name}
@@ -64,23 +64,22 @@ export default function ResultsScreen({ answered, onRetry, onHome }: Props) {
   const pct = Math.round((correct / total) * 100)
   const wrong = answered.filter(a => !a.correct)
 
-  const emoji =
-    pct === 100 ? '🏆'
-    : pct >= 80  ? '🌟'
-    : pct >= 60  ? '👍'
-    : '📚'
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center pt-12 pb-16 px-4">
-      <div className="max-w-md w-full space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center pt-16 pb-16 px-4">
+      <div className="max-w-lg w-full space-y-6">
 
         {/* Score card */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center">
-          <div className="text-6xl mb-4">{emoji}</div>
-          <div className="text-5xl font-black text-gray-900">{pct}%</div>
-          <div className="text-lg text-gray-600 mt-1">
-            {correct} av {total} rätt
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-md p-8 text-center">
+          <div className={`mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-4 ${
+            pct === 100 ? 'bg-yellow-400 text-yellow-900'
+            : pct >= 80  ? 'bg-green-100 text-green-700'
+            : pct >= 60  ? 'bg-blue-100 text-blue-700'
+            : 'bg-gray-100 text-gray-600'
+          }`}>
+            <span className="text-3xl font-black">{pct}%</span>
           </div>
+          <div className="text-5xl font-black text-gray-900">{correct} / {total}</div>
+          <div className="text-lg text-gray-600 mt-1">rätt svar</div>
           {wrong.length > 0 && (
             <div className="mt-3 text-sm text-gray-500">
               {wrong.length} {wrong.length === 1 ? 'felsvar' : 'felsvar'}
@@ -92,7 +91,7 @@ export default function ResultsScreen({ answered, onRetry, onHome }: Props) {
         <div className="flex gap-3">
           <button
             onClick={onRetry}
-            className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
+            className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-sm hover:shadow-md"
           >
             Försök igen
           </button>
@@ -125,7 +124,7 @@ export default function ResultsScreen({ answered, onRetry, onHome }: Props) {
         )}
 
         {wrong.length === 0 && (
-          <p className="text-center text-green-600 font-semibold text-sm">
+          <p className="text-center text-green-600 font-bold text-base">
             Perfekt resultat! Inga felsvar.
           </p>
         )}
