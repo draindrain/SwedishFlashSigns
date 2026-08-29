@@ -2,7 +2,7 @@
 
 A flashcard app for studying Swedish traffic signs (*vägmärken*), built with React and Vite.
 
-**[Open the app](https://draindrain.github.io/SwedishFlashSigns/)**
+**[Open the app](https://flashsigns.drnz.se/)**
 
 ## Features
 

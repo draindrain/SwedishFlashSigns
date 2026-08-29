@@ -3,5 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/SwedishFlashSigns/',
+  // Served from its own hostname (flashsigns.drnz.se, via public/CNAME), so the
+  // base is the root. A '/SwedishFlashSigns/' base would prefix every asset URL
+  // with a path that does not exist on the subdomain.
+  base: '/',
 })
