@@ -5,3 +5,22 @@
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
+/*
+ * The cookie notice drnz.se/analytics.js puts on the page before it loads
+ * anything (see the hub repo, docs/analytics.md §6). It renders in a shadow
+ * root, so its colours are the only thing reachable from out here — and
+ * Tailwind's reset does not reach in, which is why this is plain CSS on the
+ * host element rather than classes on the buttons.
+ *
+ * amber-700 rather than the amber-400 the app's own buttons use: as text on
+ * white, #fbbf24 is 1.9:1 and unreadable, while #b45309 is 5.0:1.
+ */
+#drnz-consent {
+  --consent-bg: #ffffff;
+  --consent-fg: #0f172a; /* slate-900 */
+  --consent-edge: #e2e8f0; /* slate-200 */
+  --consent-accent: #b45309;
+  --consent-radius: 12px; /* rounded-xl */
+  --consent-font: 'Inter', system-ui, sans-serif;
+}
